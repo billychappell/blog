@@ -1,0 +1,14 @@
+{{define "post"}}
+	<div class="mdl-card mdl-cell mdl-cell--12-col" id="post1">
+		<div class="mdl-card__media mdl-color-text--grey-50">
+		<h3><a href="#">{{.Title}}</h3>
+	</div>
+	<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+		<div class="minilogo"></div>
+		<div>
+			<strong>{{.Author}}</strong>
+			<br>
+			<span>{{.CreatedAt}}</span>
+		</div>
+	</div>
+{{end}}

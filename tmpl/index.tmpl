@@ -1,0 +1,18 @@
+{{define "index"}}
+<!doctype html>
+<html>
+	{{template "head" .}}
+	<body>
+		<div class="layout-transparent mdl-layout mdl-js-layout">
+		{{template "navigation" .}}
+
+		<main class="mdl-layout__content">
+		<!-- Main content goes here -->
+		{{range .}}
+			{{template "post" .}}
+		{{end}}
+		</main>
+		{{template "footer" .}}
+	</body>
+</html>
+{{end}}
