@@ -1,7 +1,7 @@
 package main
 
 import (
-	"compress/gzip"
+	"github.com/klauspost/compress/gzip"
 	"io"
 	"net/http"
 
