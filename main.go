@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/billychappell/downloader/database"
 	"github.com/bradfitz/http2"
 )
 
@@ -14,15 +15,21 @@ var (
 	prod     = flag.Bool("prod", false, "whether to configure for production")
 )
 
-var p []Post = samplePost()
-
 func main() {
+	// Configures http server.
+
 	var s http.Server
 	flag.BoolVar(&http2.VerboseLogs, "verbose", false, "verbose HTTP/2 debugging.")
 	flag.Parse()
 	s.Addr = *addr
 
-	registerHandlers()
+	// Opens database connection and retrieves list of posts to store in memory
+	p, err := database.Posts()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	registerHandlers(p)
 
 	url := "https://" + *addr + "/"
 	log.Printf("Listening on " + url)

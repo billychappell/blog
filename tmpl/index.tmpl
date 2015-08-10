@@ -1,18 +1,35 @@
 {{define "index"}}
 <!doctype html>
 <html>
-	{{template "head" .}}
+	{{template "head"}}
 	<body>
-		<div class="layout-transparent mdl-layout mdl-js-layout">
-		{{template "navigation" .}}
+		<div class="mdl-layout mdl-js-layout demo-blog has-drawer is-upgraded">
+		{{template "navigation"}}
 
 		<main class="mdl-layout__content">
+            <div class="demo-blog__posts mdl-grid">
 		<!-- Main content goes here -->
-		{{range .}}
-			{{template "post" .}}
-		{{end}}
+			    {{range .}}
+				    <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
+		                <div class="mdl-card__media mdl-color-text--grey-50">
+		                    <h3><a href="#">{{.Title}}</a></h3>
+	                    </div>
+                        <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
+                            {{.Description}}
+                        </div>
+		                <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+			                <div class="minilogo"></div>
+				            <div>
+					            <strong> {{.Author}} </strong>
+					            <span> {{.CreatedAt}} </span>
+				            </div>
+			            </div>
+		            </div>
+			    {{end}}
+        <!-- Main Content Ends here -->
+            </div>
 		</main>
-		{{template "footer" .}}
+	{{template "footer"}}
 	</body>
 </html>
 {{end}}
