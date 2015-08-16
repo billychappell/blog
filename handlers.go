@@ -4,11 +4,9 @@ import (
 	"html/template"
 	"io"
 	"net/http"
-	"time"
 
 	"github.com/billychappell/downloader/database"
 	"github.com/klauspost/compress/gzip"
-	"golang.org/x/tools/godoc/static"
 
 	"strings"
 )
@@ -49,7 +47,7 @@ func gzipHandler(fn http.HandlerFunc) func(w http.ResponseWriter, r *http.Reques
 
 var t = template.Must(template.ParseGlob("tmpl/*"))
 
-func indexHandler(p []database.Post) http.HandlerFunc {
+func indexHandler(p database.Posts) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
@@ -61,17 +59,15 @@ func indexHandler(p []database.Post) http.HandlerFunc {
 	}
 }
 
-func staticHandler(w http.ResponseWriter, r *http.Request) {
-	name := r.URL.Path
-	b, ok := static.Files[name]
-	if !ok {
-		http.NotFound(w, r)
-		return
+func articleHandler(p database.Post) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := t.ExecuteTemplate(w, "article", p); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
-	http.ServeContent(w, r, name, time.Time{}, strings.NewReader(b))
 }
 
-func registerHandlers(p []database.Post) {
+func registerHandlers(p *database.Posts) {
 	m := http.NewServeMux()
 	http.HandleFunc("/", gzipHandler(func(w http.ResponseWriter, r *http.Request) {
 		/* if r.TLS == nil {
@@ -84,7 +80,12 @@ func registerHandlers(p []database.Post) {
 		} */
 		m.ServeHTTP(w, r)
 	}))
-	m.HandleFunc("/", indexHandler(p))
+
+	m.HandleFunc("/", indexHandler(*p))
+	for i := 0; i < len(*p); i++ {
+		post := *p[i]
+		m.HandleFunc(post.Path, articleHandler(post))
+	}
 
 	fs := http.FileServer(http.Dir("static/"))
 	m.Handle("/static/", http.StripPrefix("/static/", fs))

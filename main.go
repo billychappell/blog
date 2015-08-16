@@ -24,7 +24,7 @@ func main() {
 	s.Addr = *addr
 
 	// Opens database connection and retrieves list of posts to store in memory
-	p, err := database.Posts()
+	p, err := database.GetPosts()
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -8,7 +8,9 @@ create table posts (
 	author  	varchar(255),
 	description varchar(255),
 	content		text,
-	imageurl varchar(255)
+	imageurl    varchar(255),
+    path        varchar(255),
+    featured    bool
 );
 
 create table comments (
