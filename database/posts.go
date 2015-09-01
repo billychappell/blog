@@ -42,7 +42,7 @@ type Data struct {
 
 func open() *sql.DB {
 	var err error
-	db, err = sql.Open("postgres", "user=postgres password=testing host=172.17.0.34 port=5432 dbname=postgres sslmode=disable")
+	db, err = sql.Open("postgres", "user=postgres password=testing host=172.17.0.1 port=5432 dbname=postgres sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
