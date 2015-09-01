@@ -59,7 +59,7 @@ func indexHandler(p database.Posts) http.HandlerFunc {
 	}
 }
 
-func articleHandler(p database.Post) http.HandlerFunc {
+func articleHandler(p *database.Post) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := t.ExecuteTemplate(w, "article", p); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -67,7 +67,7 @@ func articleHandler(p database.Post) http.HandlerFunc {
 	}
 }
 
-func registerHandlers(p *database.Posts) {
+func registerHandlers(p database.Posts) {
 	m := http.NewServeMux()
 	http.HandleFunc("/", gzipHandler(func(w http.ResponseWriter, r *http.Request) {
 		/* if r.TLS == nil {
@@ -81,9 +81,9 @@ func registerHandlers(p *database.Posts) {
 		m.ServeHTTP(w, r)
 	}))
 
-	m.HandleFunc("/", indexHandler(*p))
-	for i := 0; i < len(*p); i++ {
-		post := *p[i]
+	m.HandleFunc("/", indexHandler(p))
+	for i := 0; i < len(p); i++ {
+		post := p[i]
 		m.HandleFunc(post.Path, articleHandler(post))
 	}
 
