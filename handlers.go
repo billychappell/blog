@@ -36,6 +36,10 @@ func gzipHandler(fn http.HandlerFunc) func(w http.ResponseWriter, r *http.Reques
 			w.Header().Set("Content-Type", "application/javascript")
 		case strings.Contains(r.URL.Path, ".html"):
 			w.Header().Set("Content-Type", "text/html")
+		case strings.Contains(r.URL.Path, ".ttf"):
+			w.Header().Set("Content-Type", "application/x-font-ttf")
+		case strings.Contains(r.URL.Path, ".woff"):
+			w.Header().Set("Content-Type", "application/font-woff")
 		default:
 			w.Header().Set("Content-Type", "text/html")
 		}
@@ -47,13 +51,21 @@ func gzipHandler(fn http.HandlerFunc) func(w http.ResponseWriter, r *http.Reques
 
 var t = template.Must(template.ParseGlob("tmpl/*"))
 
-func indexHandler(p database.Posts) http.HandlerFunc {
+func blogHandler(p database.Posts) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := t.ExecuteTemplate(w, "blog", p); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
+
+func indexHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
-		if err := t.ExecuteTemplate(w, "index", p); err != nil {
+		if err := t.ExecuteTemplate(w, "index", "no data needed"); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
@@ -80,8 +92,8 @@ func registerHandlers(p database.Posts) {
 		} */
 		m.ServeHTTP(w, r)
 	}))
-
-	m.HandleFunc("/", indexHandler(p))
+	m.HandleFunc("/", indexHandler())
+	m.HandleFunc("/blog", blogHandler(p))
 	for i := 0; i < len(p); i++ {
 		post := p[i]
 		m.HandleFunc(post.Path, articleHandler(post))

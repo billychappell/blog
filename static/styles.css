@@ -19,6 +19,11 @@ body::before {
 .mdl-layout-title {
   color: rgba(255, 255, 255, 0.96);
 }
+
+.cm-brand {
+  color: rgba(0, 0, 0, 0.96);
+}
+
 .mdl-layout__header {
   background-color: rgba(255, 255, 255, 0.05);
 }
@@ -40,7 +45,6 @@ body .demo-blog {
 }
 
 .demo-blog.mdl-layout .mdl-layout__content {
-  padding-top: 115px;
   position: relative;
   -webkit-overflow-scrolling: touch;
 }
@@ -391,4 +395,100 @@ body .demo-blog {
   align-items: center;
   background-color: rgba(255, 255, 255, 0.05);
   box-sizing: border-box;
+}
+
+.hero-unit {
+	position: relative;
+	height: 600px;
+	width: auto;
+	background-color: #f3f3f3;
+	background: url('https://placehold.it/1024x768') center 30% no-repeat;
+	background-size: cover;
+}
+
+.hero-font {
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	line-height: 1;
+	color: #767777;
+	font-weight: 300;
+}
+
+.hero-slogan {
+	font-size: 60px;
+	padding-top: 160px; 
+}
+
+.hero-sub-slogan {
+	font-size: 21px;
+	padding-top: 24px;
+}
+
+.hero-cta a {
+	font-size: 21px;
+	padding-top: 200px;
+}
+
+.feat-product-section {
+	background: url('http://placehold.it/1024x768') center top no-repeat;
+	display: block;
+	height: 300px;
+	z-index: 1;
+	padding-top: 100px;
+}
+
+.feat-product {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #37474f;
+}
+
+.feat-product-text {
+	max-width: 800px;
+	margin-left: 25%;
+	padding: 24px;
+	text-align: left;
+	color: white;
+}
+
+.feat-product-text p {
+	padding-top: 8px;
+}
+
+.feat-product-alt-link {
+	text-decoration: none;
+	color: #64ffda !important;
+	font-size: 16px;
+}
+
+.feat-product-alt-link:hover {
+	color: #00bfa5 !important;
+}
+
+.feat-product-alt-link .material-icons {
+	position: relative;
+	top: 6px;
+}
+
+.benefit-section {
+	text-align: center;
+}
+
+.benefit-section-text {
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px 16px 0 16px;
+	color: white;
+}
+
+.benefit-section-text p {
+	padding-top: 16px;
+}
+
+.benefit-section-image {
+	background: url('http://placehold.it/1024x768') center top no-repeat;
+	background-size: cover;
+	height: 400px;
 }

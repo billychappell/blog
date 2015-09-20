@@ -4,32 +4,49 @@
 	{{template "head"}}
 	<body>
 		<div class="mdl-layout mdl-js-layout demo-blog has-drawer is-upgraded">
-		{{template "navigation"}}
+			{{template "navigation"}}
 
-		<main class="mdl-layout__content">
-            <div class="demo-blog__posts mdl-grid">
-		<!-- Main content goes here -->
-			    {{range .}}
-				    <div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
-		                <div class="mdl-card__media mdl-color-text--grey-50">
-		                    <h3><a href="#">{{.Title}}</a></h3>
-	                    </div>
-                        <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
-                            {{.Description}}
-                        </div>
-		                <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-			                <div class="minilogo"></div>
-				            <div>
-					            <strong> {{.Author}} </strong>
-					            <span> {{.CreatedAt}} </span>
-				            </div>
-			            </div>
-		            </div>
-			    {{end}}
-        <!-- Main Content Ends here -->
-            </div>
-		</main>
-	{{template "footer"}}
+			<main class="mdl-layout__content">
+				<!-- Hero Unit/Header Section -->
+				<div class="hero-unit mdl-typography--text-center">
+					<div class="hero-font hero-slogan">lorem ipsum. decorum et.</div>
+					<div class="hero-font hero-sub-slogan">consectetur adipsicing elit, sed do eiusmod tempor...</div>
+					<div class="hero-font hero-cta"><a href="" class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">Hire Me!</a></div>					
+				</div>
+				
+
+				<!-- Featured Product Section -->
+				<div class="feat-product-section">
+					<div class="feat-product">
+						<div class="feat-product-text">
+							<div class="mdl-typography--display-2 mdl-typography--font-thin">The best of both worlds.</div>
+							<p class="mdl-typography--headline mdl-typography--font-thin">
+								Just some more words here. Not enought yet, but we are getting close.
+							</p>
+							<p>
+								<a class="mdl-typography--font-regular mdl-typography--text-uppercase feat-product-alt-link" href="">
+									See what's new in our badass business!&nbsp;<i class="material-icons">chevron_right</i>
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				
+				<!-- The Benefit Section -->
+				<div class="benefit-section">
+					<div class="benefit-section-text">
+						<div class="mdl-typography--font-light mdl-typography--display-1-color-contrast">We&rsquo;re made to make you</div>
+						<p class="mdl-typography--font-light">
+							Put the stuff you care about right here: the biggest benefits, why our customers love us or a kickass catchphrase.
+							<br>
+							<a href="" class="benefit-link mdl-typography--font-light">Let's be together!</a>
+						</p>
+					</div>
+				</div>
+				<div class="benefit-section-image"></div>
+				{{ template "footer" }}
+			</main>
+		</div>
 	</body>
 </html>
 {{end}}
