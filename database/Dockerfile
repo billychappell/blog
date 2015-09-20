@@ -1,8 +1,8 @@
-# Example Dockerfile for postgres database for "github.com/billychappell/blog" package for Golang.
-
+# Basic Dockerfile for postgres database to use for testing environments.
+# DO NOT USE IN PRODUCTION.
 FROM ubuntu
 
-MAINTAINER chappell28@gmail.com
+MAINTAINER # your@email.com
 
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 USER postgres
 
 RUN /etc/init.d/postgresql start &&\
+	# Make sure you change username and password if you plan on using database
+	# for anything other than testing.
 	psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
 	createdb -O docker docker
 
